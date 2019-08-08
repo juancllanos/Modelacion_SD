@@ -78,18 +78,19 @@ line([p3(1),p5(1)],[p3(2),p5(2)],[p3(3),p5(3)]);
 line([p4(1),p5(1)],[p4(2),p5(2)],[p4(3),p5(3)]);
 view(30,30);
 %}
+
 %b)
 %{
-a = [0 0 pi/3];
+a = [deg2rad(30) deg2rad(15) deg2rad(45)];
 Rx = [ 1 0 0 ; 0 cos(a(1)) -sin(a(1)) ; 0 sin(a(1)) cos(a(1))];
 Ry = [ cos(a(2)) 0 sin(a(2)) ; 0 1 0 ; -sin(a(2)) 0 cos(a(2))];
 Rz = [ cos(a(3)) -sin(a(3)) 0 ;sin(a(3)) cos(a(3)) 0 ; 0 0 1];
 
-pp1 = [p1*Rx p1*Ry p1*Rz] ;
-pp2 = [p2*Rx p2*Ry p2*Rz];
-pp3 = [p3*Rx p3*Ry p3*Rz];
-pp4 = [p4*Rx p4*Ry p4*Rz];
-pp5 = [p5*Rx p5*Ry p5*Rz];
+pp1 = p1*Rx*Ry*Rz;
+pp2 = p2*Rx*Ry*Rz;
+pp3 = p3*Rx*Ry*Rz;
+pp4 = p4*Rx*Ry*Rz;
+pp5 = p5*Rx*Ry*Rz;
 
 line( [pp1(1),pp2(1),pp3(1),pp4(1)],[pp1(2),pp2(2),pp3(2),pp4(2)],[pp1(3),pp2(3),pp3(3),pp4(3)]);
 line([pp1(1),pp4(1)],[pp1(2),pp4(2)],[pp1(3),pp4(3)]);
@@ -97,11 +98,12 @@ line([pp1(1),pp5(1)],[pp1(2),pp5(2)],[pp1(3),pp5(3)]);
 line([pp2(1),pp5(1)],[pp2(2),pp5(2)],[pp2(3),pp5(3)]);
 line([pp3(1),pp5(1)],[pp3(2),pp5(2)],[pp3(3),pp5(3)]);
 line([pp4(1),pp5(1)],[pp4(2),pp5(2)],[pp4(3),pp5(3)]);
+
 view(30,30);
 %}
 
 %c)
-%
+
 v = VideoWriter('prueba.avi'); 
 video.FrameRate=60; 
 open(v); 
@@ -112,11 +114,11 @@ for j=1:360
     Ry = [ cos(i) 0 sin(i) ; 0 1 0 ; -sin(i) 0 cos(i)];
     Rz = [ cos(i) -sin(i) 0 ;sin(i) cos(i) 0 ; 0 0 1];
 
-    pp1 = p1*Rx ;
-    pp2 = p2*Ry ;
-    pp3 = p3*Rz;
-    pp4 = p4*Rx;
-    pp5 = p5*Rx ;
+    pp1 = p1*Rx*Ry*Rz;
+    pp2 = p2*Rx*Ry*Rz;
+    pp3 = p3*Rx*Ry*Rz;
+    pp4 = p4*Rx*Ry*Rz;
+    pp5 = p5*Rx*Ry*Rz;
 
     line( [pp1(1),pp2(1),pp3(1),pp4(1)],[pp1(2),pp2(2),pp3(2),pp4(2)],[pp1(3),pp2(3),pp3(3),pp4(3)]);
     line([pp1(1),pp4(1)],[pp1(2),pp4(2)],[pp1(3),pp4(3)]);
@@ -125,13 +127,15 @@ for j=1:360
     line([pp3(1),pp5(1)],[pp3(2),pp5(2)],[pp3(3),pp5(3)]);
     line([pp4(1),pp5(1)],[pp4(2),pp5(2)],[pp4(3),pp5(3)]);
 
-    xlim([-2, 2]); 
-    ylim([-2, 2]);
-    zlim([-2, 2]);
+    xlim([-3, 3]); 
+    ylim([-3, 3]);
+    zlim([-3, 3]);
     view(30,30);
     
     F = getframe(gcf); 
     writeVideo(v,F); 
+    clf;
+    %pause(1);
 end
 close(v); % finalizamos el video
 
