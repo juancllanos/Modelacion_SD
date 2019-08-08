@@ -1,7 +1,7 @@
 % -- Punto 1 -- %
 %{
 j = 1;
-for i=1:0.2:
+for i=-1:0.2:1
     x1(j) = i;
     y1(j) = i^2;
     y2(j) = 2*i;
@@ -103,7 +103,7 @@ view(30,30);
 %}
 
 %c)
-
+%{
 v = VideoWriter('prueba.avi'); 
 video.FrameRate=60; 
 open(v); 
@@ -138,7 +138,7 @@ for j=1:360
     %pause(1);
 end
 close(v); % finalizamos el video
-
+%}
 
 
 
